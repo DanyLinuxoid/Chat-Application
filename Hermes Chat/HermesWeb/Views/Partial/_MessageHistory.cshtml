@@ -1,0 +1,15 @@
+﻿@using HermesModels.Chat
+@model List<MessageModel>
+
+<div id="message-container">
+    @foreach(var message in Model)
+    {
+        <div class="chat-row chat-message-box">
+            <p class="chat-row">@message.CreationTime.ToString("dd.MM.yyyy") at @message.CreationTime.ToString("HH:mm:ss")</p>
+            <p class="chat-row">@message.UserName</p>
+            <div class="message">
+                <p class="chat-row">@message.Text</p>
+            </div>
+        </div>
+    }
+</div>

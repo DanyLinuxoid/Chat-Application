@@ -1,0 +1,22 @@
+﻿@using HermesChat.Helpers
+@model HermesModels.MVC.LoginModel
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, htmlAttributes: new { @class = "login-form", @align = "center" }))
+{
+    <h4 class="header">Login</h4>
+
+    <div class="mid-size center-left">
+        @Html.HermesLabelFor(m => m.Username)
+        @Html.HermesTextBoxFor(m => m.Username)
+        @Html.HermesValidationMessageFor(m => m.Username)
+
+        @Html.HermesLabelFor(m => m.Password)
+        @Html.HermesTextBoxFor(m => m.Password, type: "Password")
+        @Html.HermesValidationMessageFor(m => m.Password)
+
+        @Html.HermesSubmitButton("Log In!")
+    </div>
+}
+
+@Html.HermesActionLink("Forgot your password? (Not working yet)", "", "")<br/>
+@Html.HermesActionLink("No account yet?", "Registration")

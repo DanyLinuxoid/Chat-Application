@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "../out/"
+  },
+  "exclude": [ "wwwroot" ],
+  "include": [ "**/*" ]
+}

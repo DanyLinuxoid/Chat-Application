@@ -1,0 +1,43 @@
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Options;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Hermes.Areas.Identity.Services
+{
+    public class EmailSender : IEmailSender
+    {
+        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
+        {
+            Options = optionsAccessor.Value;
+        }
+
+        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
+
+        public Task SendEmailAsync(string email, string subject, string message)
+        {
+            return Execute(Options.SendGridKey, subject, message, email);
+        }
+
+        public Task Execute(string apiKey, string subject, string message, string email)
+        {
+            var client = new SendGridClient("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");
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("HermesAlhambra@gmail.com", "Hermes"),
+                Subject = subject,
+                PlainTextContent = message,
+                HtmlContent = message
+            };
+            msg.AddTo(new EmailAddress(email));
+
+            msg.SetClickTracking(false, false);
+
+            return client.SendEmailAsync(msg);
+        }
+    }
+}

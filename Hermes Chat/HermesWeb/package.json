@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "@types/jquery": "^3.5.0",
+    "expose-loader": "^1.0.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@microsoft/signalr": "^3.1.5",
+    "@types/jquery.validation": "^1.16.6",
+    "@types/node": "^14.0.23",
+    "jquery": "^3.5.1"
+  },
+  "scripts": {
+    "build": "webpack -d --config ./webpack.config.js"
+  },
+  "-vs-binding": {
+    "AfterBuild": [
+      "build"
+    ]
+  }
+}

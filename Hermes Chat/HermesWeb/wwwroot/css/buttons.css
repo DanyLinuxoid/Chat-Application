@@ -1,0 +1,32 @@
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+.button-classic {
+    background-color: #068080;
+    border: solid;
+    text-decoration: none;
+    border-radius: 3px;
+    border: solid 1px black;
+}
+.button-classic:hover {
+    background-color: #034c4c;
+    opacity: 0.9;
+}
+
+.button-classic-mid {
+    font-size: 18px;
+    padding: 4px 10px;
+    background-color: #068080;
+    border: solid;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1.5px black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.button-classic-mid:hover {
+    background-color: #034c4c;
+    opacity: 0.9;
+}

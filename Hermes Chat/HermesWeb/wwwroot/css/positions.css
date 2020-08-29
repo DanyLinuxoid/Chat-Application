@@ -1,0 +1,77 @@
+.bottom {
+    bottom: 0px;
+    position: relative;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float: right;
+}
+
+.absolute-bottom {
+    bottom: 72px;
+    position: absolute;
+}
+
+.absolute-right {
+    position: absolute;
+    right: 0px;
+}
+
+.center {
+     right: 50%; 
+     bottom: 50%; 
+}
+
+.center-left {
+    text-align: start;
+    margin-left: 40%;
+}
+
+.upper-center {
+    right: 50%;
+    top: 0px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.height-inherit {
+    height: inherit;
+}
+
+.space-around {
+    padding: 5px 5px 5px 5px;
+}
+
+.space-after {
+     padding-top: 6px; 
+}
+
+.inline {
+    display: inline;
+}
+
+.navbar-right {
+    float: right;
+    height: 100%;
+}
+
+.navbar-left {
+    float: left;
+    height: 100%;
+}
+
+.inner-center {
+    width: 52%;
+    float: left;
+    text-align: end;
+}

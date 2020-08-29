@@ -1,0 +1,25 @@
+﻿@model HermesModels.Chat.ChatInformation
+
+<head>
+    <link href="~/css/chat.css" rel="stylesheet" />
+</head>
+
+@section scripts {
+    <script src="@Url.Content("~/bundle/chatbundle.js")"></script>
+}
+
+<body>
+    <div class="chat-wrapper">
+        @await Html.PartialAsync("~/Views/Partial/_UsersOnlinePanel.cshtml", Model.UsersOnline) 
+        <div class="chat-border chat">
+            <div id="chat">
+                <h4 class="chat-header">Global Chat</h4>
+                @await Html.PartialAsync("~/Views/Partial/_MessageHistory.cshtml", Model.Messages)
+            </div>
+        </div>
+        @using (Html.BeginForm(FormMethod.Post, htmlAttributes: new { @class = "chat-form" }))
+        {
+            @await Html.PartialAsync("~/Views/Partial/_SendMessageForm.cshtml", Model.UserMessage)
+        }
+    </div>
+</body>

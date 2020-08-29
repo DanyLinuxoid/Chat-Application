@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HermesWeb", "HermesWeb.csproj", "{A5CAE87B-A49F-4DF1-B582-6EC547108FF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HermesModels", "..\HermesModels\HermesModels.csproj", "{BC87F70C-E2BA-49CA-8ED2-5936BC200B9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HermesLogic", "..\HermesLogic\HermesLogic.csproj", "{7D7C2AC2-D34C-4F10-B0B7-FD4B4C407204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HermesDataAccess", "..\HermesDataAccess\HermesDataAccess.csproj", "{F946AC63-163D-4BD5-8D19-A4F4B65766F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HermesQueriesCommands", "..\HermesQueriesCommands\HermesQueriesCommands.csproj", "{72293203-9A96-4CE9-B742-9022B86E9A95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HermesAuthentication", "..\HermesAuthentication\HermesAuthentication.csproj", "{E33BE4FC-DCBB-4DE4-B200-615ACC3AE176}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5CAE87B-A49F-4DF1-B582-6EC547108FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CAE87B-A49F-4DF1-B582-6EC547108FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CAE87B-A49F-4DF1-B582-6EC547108FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CAE87B-A49F-4DF1-B582-6EC547108FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC87F70C-E2BA-49CA-8ED2-5936BC200B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC87F70C-E2BA-49CA-8ED2-5936BC200B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC87F70C-E2BA-49CA-8ED2-5936BC200B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC87F70C-E2BA-49CA-8ED2-5936BC200B9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7C2AC2-D34C-4F10-B0B7-FD4B4C407204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7C2AC2-D34C-4F10-B0B7-FD4B4C407204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7C2AC2-D34C-4F10-B0B7-FD4B4C407204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7C2AC2-D34C-4F10-B0B7-FD4B4C407204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F946AC63-163D-4BD5-8D19-A4F4B65766F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F946AC63-163D-4BD5-8D19-A4F4B65766F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F946AC63-163D-4BD5-8D19-A4F4B65766F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F946AC63-163D-4BD5-8D19-A4F4B65766F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72293203-9A96-4CE9-B742-9022B86E9A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72293203-9A96-4CE9-B742-9022B86E9A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72293203-9A96-4CE9-B742-9022B86E9A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72293203-9A96-4CE9-B742-9022B86E9A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33BE4FC-DCBB-4DE4-B200-615ACC3AE176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33BE4FC-DCBB-4DE4-B200-615ACC3AE176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33BE4FC-DCBB-4DE4-B200-615ACC3AE176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33BE4FC-DCBB-4DE4-B200-615ACC3AE176}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6B9FE39-397C-4F30-AACA-D3EAE3855547}
+	EndGlobalSection
+EndGlobal
