@@ -1,82 +1,100 @@
 ﻿using AuthenAuthorAccount.Interfaces;
+using HermesAuthentication.Session;
 using HermesDataAccess.Enums;
 using HermesDataAccess.Interfaces;
+using HermesDataAccess.Tables;
 using HermesModels.MVC;
 using HermesModels.User;
-using HermesQueriesCommands.TBL_ASPNET_USER;
+using HermesQueriesCommands.Commands;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Memory;
-using System.Collections.Generic;
 
 namespace AuthenAuthorAccount.Authentication
 {
+    /// <summary>
+    /// Authentication logic for user.
+    /// </summary>
     public class AuthenticationLogic : IAuthenticationLogic
     {
-        private readonly IMemoryCache _memoryCache; 
-
+        /// <summary>
+        /// Cookies and all related logic.
+        /// </summary>
         private readonly ICookieLogic _cookieLogic; 
 
-        private readonly ISqlDb _sqlDb;
-
+        /// <summary>
+        /// Http context access.
+        /// </summary>
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        /// <summary>
+        /// Session related logic.
+        /// </summary>
+        private readonly ISessionLogic _sessionLogic;
+
+        /// <summary>
+        /// Database instance.
+        /// </summary>
+        private readonly ISqlDb _sqlDb;
+
+        /// <summary>
+        /// Authentication logic for user.
+        /// </summary>
         public AuthenticationLogic(
-            ISqlDb sqlDb, 
-            IMemoryCache memoryCache, 
+            IHttpContextAccessor httpContextAccessor,
             ICookieLogic cookieLogic,
-            IHttpContextAccessor httpContextAccessor)
+            ISessionLogic sessionLogic,
+            ISqlDb sqlDb)
         {
-            _memoryCache = memoryCache;
-            _sqlDb = sqlDb;
             _cookieLogic = cookieLogic;
             _httpContextAccessor = httpContextAccessor;
+            _sessionLogic = sessionLogic;
+            _sqlDb = sqlDb;
         }
 
-        public IExecutionResult RegisterNewUser(RegistrationModel registrationModel)
+        /// <summary>
+        /// Registers new user by creating new asp net user related account information.
+        /// </summary>
+        /// <param name="registrationModel">Registration model to use.</param>
+        public void RegisterNewUser(RegistrationModel registrationModel)
         {
-            return _sqlDb.Command(new ASPNET_USER_Commands(), CommandTypes.Create, new Dictionary<string, object>()
+            var aspnetUser = _sqlDb.Command(new ASPNET_USERS_Commands(), CommandTypes.Create, new ASPNET_USER());
+
+            ACCOUNT_DETAILS accountDetails = new ACCOUNT_DETAILS()
             {
-                ["UserName"] = registrationModel.UserName,
-                ["Email"] = registrationModel.Email,
-                ["PasswordHash"] = registrationModel.Password,
-            });
+                USERNAME = registrationModel.UserName,
+                EMAIL = registrationModel.Email,
+                PASSWORD_HASH = registrationModel.Password,
+                ASPNET_USER_ID = aspnetUser.Id,
+                PROFILE_PHOTO_ID = 1, // Default picture for all new users.
+            };
+            _sqlDb.Command(new ACCOUNT_DETAILS_Commands(), CommandTypes.Create, accountDetails);
         }
 
-        public IExecutionResult LoginUser(AspNetUser aspNetUser)
+        /// <summary>
+        /// Logs in user.
+        /// </summary>
+        /// <param name="aspNetUser">Asp net user to log in.</param>
+        public void LoginUser(ChatUser aspNetUser)
         {
-             IExecutionResult result = _sqlDb.Command(new ASPNET_USER_Commands(), CommandTypes.Update, new Dictionary<string, object>
-            {
-                ["Id"] = aspNetUser.Id,
-                ["IsLogged"] = 1,
-            });
+            // Setting cookies for user.
+            var cookies = _cookieLogic.GetDefaultCookieOptions(aspNetUser.Username);
+            _httpContextAccessor.HttpContext.SignInAsync(cookies.ClaimsPrincipal, cookies.AuthenticationProperties);
 
-            if (result.Id != 0)
-            {
-                _memoryCache.Set(aspNetUser.Id, aspNetUser); // to base
-
-                var cookies = _cookieLogic.GetDefaultCookieOptions(aspNetUser.UserName);
-                _httpContextAccessor.HttpContext.SignInAsync(cookies.ClaimsPrincipal, cookies.AuthenticationProperties); // aye, make everything async + task 
-            }
-
-            return result;
+            // Setting session for user.
+            _sessionLogic.SetSessionValuesForUser(aspNetUser);
         }
 
-        public IExecutionResult LogoutUser(AspNetUser aspNetUser)
+        /// <summary>
+        /// Logs out passed in user.
+        /// </summary>
+        /// <param name="aspNetUser">User to log out.</param>
+        public void LogoutUser(ChatUser aspNetUser)
         {
-             IExecutionResult result = _sqlDb.Command(new ASPNET_USER_Commands(), CommandTypes.Update, new Dictionary<string, object>
-            {
-                ["Id"] = aspNetUser.Id,
-                ["IsLogged"] = 0,
-            });
+            // Clear cookies.
+            _httpContextAccessor.HttpContext.SignOutAsync();
 
-            if (result.Id != 0)
-            {
-                _memoryCache.Remove(aspNetUser.Id); // to base
-                _httpContextAccessor.HttpContext.SignOutAsync(); // aye, make everything async + task 
-            }
-
-            return result;
+            // Clear session.
+            _sessionLogic.ClearSessionForUser(aspNetUser);
         }
     }
 }

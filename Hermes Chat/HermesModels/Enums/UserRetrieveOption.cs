@@ -3,6 +3,10 @@
     public enum UserRetrieveOption
     {
         GetByUsername,
+        GetByUsernameAsync,
         GetByEmail,
+        GetByEmailAsync,
+        GetById,
+        GetByIdAsync,
     }
 }

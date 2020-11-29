@@ -1,0 +1,16 @@
+﻿@model HermesModels.MVC.UserAccountManagementViewModel
+
+<head>
+    <script src="@Url.Content("~/bundle/accountManagementbundle.js")"></script>
+</head>
+
+<div class="block">
+    <div class="menu-container">
+        <ul class="side-menu">
+            <li class="menu-elem responsive" id="profile-option">Profile</li>
+        </ul>
+    </div>
+    <div class="partial-container-l">
+        @await Html.PartialAsync(MVC.AccountManagement.Views.Partial._AccountManagement, Model)
+    </div>
+</div>

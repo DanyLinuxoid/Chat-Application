@@ -1,5 +1,14 @@
 /* MAIN CHAT SECTION*/
 
+#chat {
+    height: 100%;
+}
+#message-container {
+    height: calc(70%);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .chat {
     float: right;
     height: inherit;
@@ -25,6 +34,7 @@
     width: 20%;
     background-color:azure;
     font-size: 16px;
+    border: solid 1px red;
 }
 
 .chat-border {
@@ -32,6 +42,8 @@
     outline: thick;
     border-radius: 12px;
     position: relative;
+    overflow: hidden;
+    padding-bottom: 0px;
 }
 
 .chat-header {
@@ -68,7 +80,7 @@
 /* MESSAGE BOX SECTION*/
 
 .chat-message-box {
-    width: 30%;
+    width: 20%;
     position: relative;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -79,6 +91,7 @@
     margin-top: 10px;
     margin-left: 25px;
     border: 2px solid #dedede;
+    height: 90px;
 }
 .chat-message-box:before, .chat-message-box:after {
     content: "";
@@ -139,22 +152,45 @@
     border-radius: 50%;
 }
 
-.person-avatar {
+.person-avatar-S {
     float: left;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-top: 3px; 
+    display: inline-block;
+    border-radius: 50%;
+}
+.person-avatar-M {
+    float: left;
+    width: 40px;
+    height: 40px;
     float: left;
     margin-top: 3px; 
     display: inline-block;
     border-radius: 50%;
 }
 
-/* OTHER SECTION */
+/* ROWS */
+
+.list-row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    height: 100px;
+    padding-left: 25px;
+    list-style-type: none;
+}
 
 .chat-row {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
+
+/* OTHER SECTION */
 
 hr {
     border-top: 1px solid rgba(255, 255, 255, 0.2) !important;

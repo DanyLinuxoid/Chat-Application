@@ -75,8 +75,8 @@
     <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.AspNetCore.Mvc.Core.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNetCore.ResponseCaching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.AspNetCore.ResponseCaching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.AspNetCore.ResponseCaching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\Microsoft.AspNetCore.ResponseCaching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Routing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.AspNetCore.Routing.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.dll</HintPath>
@@ -94,13 +94,13 @@
       <HintPath>..\Hermes Application\packages\Microsoft.DotNet.PlatformAbstractions.2.0.0\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Caching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.Caching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.Configuration.Abstractions.2.1.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.DependencyInjection.Abstractions.5.0.0-preview.6.20305.6\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyModel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.Extensions.DependencyModel.2.0.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
@@ -114,17 +114,17 @@
     <Reference Include="Microsoft.Extensions.Localization.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Localization.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Localization.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0-preview.6.20305.6\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.Extensions.ObjectPool.2.0.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Options.5.0.0-preview.6.20305.6\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\Microsoft.Extensions.Primitives.5.0.0-preview.6.20305.6\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <HintPath>..\HermesWeb\packages\Microsoft.Extensions.Primitives.5.0.0-preview.8.20407.11\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\Microsoft.Net.Http.Headers.2.0.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
@@ -136,9 +136,13 @@
       <HintPath>..\Hermes Application\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\Hermes Application\packages\System.Configuration.ConfigurationManager.5.0.0-preview.6.20305.6\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
@@ -150,16 +154,16 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <HintPath>..\HermesWeb\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\HermesWeb\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\Hermes Application\packages\System.Runtime.CompilerServices.Unsafe.5.0.0-preview.6.20305.6\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\HermesWeb\packages\System.Runtime.CompilerServices.Unsafe.5.0.0-preview.8.20407.11\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Security.AccessControl, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -188,38 +192,45 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AAA\AAALogic.cs" />
-    <Compile Include="Base\BaseLogic.cs" />
-    <Compile Include="Base\CommonDependencies.cs" />
-    <Compile Include="Caching\CacheManager.cs" />
-    <Compile Include="Validators\MessageValidator.cs" />
-    <Compile Include="DependencyInjector.cs" />
-    <Compile Include="Factories\ValidatorFactory.cs" />
-    <Compile Include="Interfaces\ICommonDependencies.cs" />
-    <Compile Include="Interfaces\IAAALogic.cs" />
-    <Compile Include="Interfaces\IApplicationValidator.cs" />
-    <Compile Include="Interfaces\ICacheManager.cs" />
-    <Compile Include="Interfaces\IApplicationValidatorFactory.cs" />
-    <Compile Include="UserInformation\UserManager.cs" />
-    <Compile Include="Interfaces\IMessageLogic.cs" />
-    <Compile Include="Chat\MessageLogic.cs" />
+    <Compile Include="Base\GenericMapper.cs" />
+    <Compile Include="Base\UserManagement\CredentialManager.cs" />
+    <Compile Include="Base\UserManagement\ICredentialManager.cs" />
+    <Compile Include="Base\UserManagement\IUserManager.cs" />
+    <Compile Include="Base\UserManagement\IUserNonManipulativeLogic.cs" />
+    <Compile Include="Base\UserManagement\UserManager.cs" />
+    <Compile Include="Base\UserManagement\UserNonManipulativeLogic.cs" />
+    <Compile Include="Base\Validator\IValidatorFactory.cs" />
+    <Compile Include="Base\Validator\ValidatorFactory.cs" />
+    <Compile Include="Base\Validator\ApplicationValidator.cs" />
+    <Compile Include="Base\Validator\IApplicationValidator.cs" />
+    <Compile Include="Base\CacheKeys.cs" />
+    <Compile Include="Extensions\ByteArrayExtensions.cs" />
+    <Compile Include="Extensions\FormFileExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Features\AccountManagement\AccountManagementLogic.cs" />
+    <Compile Include="Features\AccountManagement\Interfaces\IAccountManagementLogic.cs" />
+    <Compile Include="Features\AccountManagement\Validators\AccountManagementValidator.cs" />
+    <Compile Include="Features\AccountManagement\Validators\UserProfileValidator.cs" />
+    <Compile Include="Features\Authentication\AuthenticationLogic.cs" />
+    <Compile Include="Files\FileLogic.cs" />
+    <Compile Include="Files\IFileLogic.cs" />
+    <Compile Include="Mappers\DboToDto\AccountDetailsMapper.cs" />
+    <Compile Include="Mappers\DboToDto\ChatUserMapper.cs" />
+    <Compile Include="Features\Chat\Validators\MessageValidator.cs" />
+    <Compile Include="Features\Authentication\Interfaces\IAuthenticationLogic.cs" />
+    <Compile Include="Features\Chat\Interfaces\IMessageLogic.cs" />
+    <Compile Include="Features\Chat\MessageLogic.cs" />
     <Compile Include="Configuration\ConfigurationManager.cs" />
-    <Compile Include="Chat\ChatLogic.cs" />
-    <Compile Include="Interfaces\IChatLogic.cs" />
-    <Compile Include="Interfaces\IUserManager.cs" />
-    <Compile Include="Interfaces\IUserManipulationLogic.cs" />
-    <Compile Include="Mappers\AspNetUserMapper.cs" />
-    <Compile Include="Mappers\MessageMapper.cs" />
-    <Compile Include="Mappers\GenericMapper.cs" />
+    <Compile Include="Features\Chat\ChatLogic.cs" />
+    <Compile Include="Features\Chat\Interfaces\IChatLogic.cs" />
+    <Compile Include="Mappers\DboToDto\AspNetUserMapper.cs" />
+    <Compile Include="Mappers\DboToDto\MessageMapper.cs" />
+    <Compile Include="Mappers\DtoToDbo\AccountDetailsMapper.cs" />
+    <Compile Include="Mappers\DtoToDbo\MessageMapper.cs" />
+    <Compile Include="Mappers\FileBaseMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInformation\CredentialManager.cs" />
-    <Compile Include="Interfaces\ICredentialManager.cs" />
-    <Compile Include="Interfaces\IUserNonManipulativeLogic.cs" />
-    <Compile Include="UserInformation\UserManipulativeLogic.cs" />
-    <Compile Include="UserInformation\UserNonManipulativeLogic.cs" />
-    <Compile Include="Validators\ApplicationValidator.cs" />
-    <Compile Include="Validators\LoginValidator.cs" />
-    <Compile Include="Validators\RegistrationValidator.cs" />
+    <Compile Include="Features\Authentication\Validators\LoginValidator.cs" />
+    <Compile Include="Features\Authentication\Validators\RegistrationValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -248,6 +259,11 @@
       <Project>{72293203-9a96-4ce9-b742-9022b86e9a95}</Project>
       <Name>HermesQueriesCommands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HermesShared\HermesShared.csproj">
+      <Project>{28EBE6B6-74B4-46B9-AE15-5E960392AC19}</Project>
+      <Name>HermesShared</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

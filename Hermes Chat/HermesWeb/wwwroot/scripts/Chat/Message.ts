@@ -1,12 +1,14 @@
 ﻿// User message model
 export class Message {
+    public Id: number;
+
     public Text: string;
+
     public Username: string;
+
     public CreationTime: Date;
 
-    constructor(username, text, creationTime) {
-        this.Username = username;
-        this.Text = text;
-        this.CreationTime = creationTime;
-    }
+    public UserId: number;
+
+    public AccountImageData: any;
 }

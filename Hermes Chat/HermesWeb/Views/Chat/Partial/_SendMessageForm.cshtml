@@ -1,0 +1,9 @@
+﻿@model HermesModels.Chat.MessageModel
+@{
+    Model.UserName = User.Claims.FirstOrDefault(m => m.Type == "Username")?.Value;
+}
+
+@Html.HermesTextAreaFor(m => m.Text, htmlAttributes: new { @placeholder = "Your message here", @id = "message-text" })
+@Html.HermesInputButton(text: "Send", id: "send-message", className: "btn-classic")
+@Html.HermesValidationMessageFor(m => m.Text)
+@Html.HiddenFor(m => m.UserName)

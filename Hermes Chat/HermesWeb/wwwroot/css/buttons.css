@@ -3,19 +3,19 @@ button.accept-policy {
     line-height: inherit;
 }
 
-.button-classic {
+.btn-classic {
     background-color: #068080;
     border: solid;
     text-decoration: none;
     border-radius: 3px;
     border: solid 1px black;
 }
-.button-classic:hover {
+.btn-classic:hover {
     background-color: #034c4c;
     opacity: 0.9;
 }
 
-.button-classic-mid {
+.btn-classic-mid {
     font-size: 18px;
     padding: 4px 10px;
     background-color: #068080;
@@ -29,4 +29,14 @@ button.accept-policy {
 .button-classic-mid:hover {
     background-color: #034c4c;
     opacity: 0.9;
+}
+
+.icon {
+    border-radius: 10px;
+    font-size: 18px;
+    height: 20px;
+    width: 20px;
+}
+.icon:hover {
+    cursor: pointer;
 }

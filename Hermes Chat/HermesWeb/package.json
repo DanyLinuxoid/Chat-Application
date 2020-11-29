@@ -4,15 +4,19 @@
   "private": true,
   "devDependencies": {
     "@types/jquery": "^3.5.0",
+    "@types/jquery-validation-unobtrusive": "^3.2.32",
+    "@types/jquery.validation": "^1.16.6",
     "expose-loader": "^1.0.0",
+    "imports-loader": "^1.2.0",
+    "jquery": "^3.5.1",
+    "jquery-validation": "^1.19.2",
+    "jquery-validation-unobtrusive": "^3.2.11",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@microsoft/signalr": "^3.1.5",
-    "@types/jquery.validation": "^1.16.6",
-    "@types/node": "^14.0.23",
-    "jquery": "^3.5.1"
+    "@types/node": "^14.0.23"
   },
   "scripts": {
     "build": "webpack -d --config ./webpack.config.js"

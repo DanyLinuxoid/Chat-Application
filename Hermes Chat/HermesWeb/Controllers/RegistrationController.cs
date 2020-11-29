@@ -1,35 +1,55 @@
-﻿using HermesLogic.Interfaces;
+using HermesLogic.Features.Authentication.Interfaces;
 using HermesModels.MVC;
+using HermesWeb.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HermesChat.Controllers
+namespace HermesWeb.Controllers
 {
+    /// <summary>
+    /// Controller for registration.
+    /// </summary>
     [AllowAnonymous]
-    public class RegistrationController : ApplicationController
+    public partial class RegistrationController : HermesApplicationController
     {
-        private readonly IAAALogic _AAALogic;
+        /// <summary>
+        /// Logic which contains all the authentication related logic.
+        /// </summary>
+        private readonly IAuthenticationLogic _authenticationLogic;
 
-        public RegistrationController(IAAALogic AAALogic)
+        /// <summary>
+        /// Controller for registration.
+        /// </summary>
+        public RegistrationController(IAuthenticationLogic AAALogic)
         {
-            _AAALogic = AAALogic;
+            _authenticationLogic = AAALogic;
         }
 
-        public IActionResult Index()
+        /// <summary>
+        /// Registration page.
+        /// </summary>
+        public virtual IActionResult Index()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Register(RegistrationModel registrationModel)
-        {
-            var isRegistered = _AAALogic.RegisterUser(registrationModel);
-            if (isRegistered == true)
+            // Disallow user to access registration functionalities if he is logged in already.
+            if (User.Identity.IsAuthenticated)
             {
-                return View("RegistrationConfirmed");
+                return RedirectToAction(MVC.Chat.Index());
             }
-            // ERROR PAGE IF NULL
-            return View("Index");
+
+            return View(MVC.Registration.Views.Register);
+        }
+
+        /// <summary>
+        /// Tries to register user.
+        /// </summary>
+        /// <param name="registrationModel"></param>
+        /// <returns>Returns view with completed registration if everything is ok.</returns>
+        [HttpPost]
+        [ModelStateFilter]
+        public virtual IActionResult Register(RegistrationModel registrationModel)
+        {
+            _authenticationLogic.RegisterUser(registrationModel);
+            return View(MVC.Registration.Views.RegistrationConfirmed);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IExecutionResult
     {
-        int Id { get; set; }
+        long Id { get; set; }
 
         string ErrorMessage { get; set; }
     }

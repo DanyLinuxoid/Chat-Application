@@ -1,25 +1,33 @@
 ﻿using Dapper;
+using System;
 using System.Collections.Generic;
 
 namespace HermesQueriesCommands
 {
+    /// <summary>
+    /// Helper for database commands creation.
+    /// </summary>
     public  static class CommandHelper
     {
-        public static DynamicParameters GetDynamicParameters(Dictionary<string, object> userParameters, Dictionary<string, object> defaultParameters)
+        /// <summary>
+        /// Creates dynamic parameters for dapper from key (field name) and value (field value).
+        /// </summary>
+        /// <param name="userParameters">Parameters with key as field name and value as field value.</param>
+        /// <returns>DynamicParameters object with mapped values.</returns>
+        public static DynamicParameters GetDynamicParameters(Dictionary<string, object> userParameters)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();
 
-            foreach (KeyValuePair<string, object> defaultPair in defaultParameters)
+            foreach (KeyValuePair<string, object> defaultPair in userParameters)
             {
-                if (userParameters.ContainsKey(defaultPair.Key))
+                // Dapper is not overriding datetime values during CUD commands, so if in parameters there is default datetime
+                // then it will try to insert it despite of GETDATE() defined for field in sql command...
+                if (defaultPair.Value is DateTime dt && dt == DateTime.MinValue)
                 {
-                    userParameters.TryGetValue(defaultPair.Key, out object value);
-                    dynamicParameters.Add("@" + defaultPair.Key, value);
+                    continue;
                 }
-                else
-                {
-                    dynamicParameters.Add("@" + defaultPair.Key, defaultPair.Value);
-                }
+
+                dynamicParameters.Add(string.Concat("@", defaultPair.Key), defaultPair.Value);
             }
 
             return dynamicParameters;

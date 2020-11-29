@@ -1,0 +1,24 @@
+﻿@model HermesModels.MVC.LoginModel
+
+<head>
+    <script src="@Url.Content("~/bundle/accountManagementbundle.js")"></script>
+</head>
+
+@using (Html.BeginForm(MVC.Home.Login(), FormMethod.Post, htmlAttributes: new { @class = "login-form", @align = "center" }))
+    {
+        <h4 class="header">Login</h4>
+
+        <div class="mid-size center-left">
+            @Html.HermesLabelFor(m => m.Username)
+            @Html.HermesTextBoxFor(m => m.Username)
+            @Html.HermesValidationMessageFor(m => m.Username)
+
+            @Html.HermesLabelFor(m => m.Password)
+            @Html.HermesTextBoxFor(m => m.Password, type: "Password")
+            @Html.HermesValidationMessageFor(m => m.Password)
+
+            @Html.HermesInputButton(text: "Log In!", type: "submit")
+        </div>
+    }
+
+    @Html.HermesActionLink("No account yet?", MVC.Registration.Index())

@@ -4,7 +4,11 @@ var webpack = require('webpack');
 module.exports = {
     entry: {
         chat: root + "/out/Chat/Chat.js",
-        layout: root + "/out/Layout/Layout.js",
+        layout: [
+            root + "/out/Layout/Layout.js",
+            root + "/out/Layout/FormScripts.js",
+            ],
+        accountManagement: root + "/out/AccountManagement/AccountManagement.js",
     },
     output: {
         path: root + "/bundle/",

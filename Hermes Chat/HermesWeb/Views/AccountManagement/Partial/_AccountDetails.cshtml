@@ -1,0 +1,42 @@
+﻿@model HermesModels.MVC.UserProfileModel
+@{ 
+    var disabled = new { @class = "transparent-input disable" };
+}
+
+@using (Html.BeginForm(MVC.AccountManagement.Account(), FormMethod.Post, htmlAttributes: new { @id = "acc-form-submit" }))
+{
+
+    <div class="left bord-aqua-thick space-around-m">
+        <div class="relative left">
+            @Html.HermesImage(Model?.AccountImage?.Data, className: "profile-pic uploadable")
+            @await Html.PartialAsync(MVC.Shared.Views.Partial._UploadFile)
+        </div>
+        <div class="profile-menu">
+            <div>
+                <strong id="info-updated" class="notif-l-s hidden">Information updated!</strong>
+                <img id="edit-account" class="icon right scale-s" src="~/images/editico.png" />
+                <input id="save-account" class="icon right scale-s hidden" type="image" src="~/images/checkico.png" />
+            </div>
+            <div id="nickname">
+                @Html.HermesTextBoxFor(m => m.UserName, htmlAttributes: disabled)
+                @Html.HermesValidationMessageFor(m => m.UserName)
+                <p>Nickname</p>
+            </div>
+            <div id="phone-number">
+                @Html.HermesTextBoxFor(m => m.PhoneNumber, htmlAttributes: disabled)
+                @Html.HermesValidationMessageFor(m => m.PhoneNumber)
+                <p>Phone Number</p>
+            </div>
+            <div id="email">
+                @Html.HermesTextBoxFor(m => m.Email, htmlAttributes: disabled)
+                @Html.HermesValidationMessageFor(m => m.Email)
+                <p>Email</p>
+            </div>
+        </div>
+        <h5>About me</h5>
+        <div id="about-me">
+            @Html.HermesTextAreaFor(m => m.AboutMe, htmlAttributes: new { @rows = "3", @class = "full-width disable" })
+            @Html.HermesValidationMessageFor(m => m.AboutMe)
+        </div>
+    </div>
+}

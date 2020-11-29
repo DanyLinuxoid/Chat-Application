@@ -1,12 +1,11 @@
 ﻿using HermesModels.Interfaces;
-using HermesModels.MVC;
 using System;
 
 namespace HermesModels.Chat
 {
-    public class MessageModel : MvcBaseModel, IValidationObject
+    public class MessageModel : IValidationObject
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string UserName { get; set; }
 
@@ -14,6 +13,6 @@ namespace HermesModels.Chat
 
         public DateTime CreationTime { get; set; }
 
-        public int UserId { get; set; }
+        public long UserId { get; set; }
     }
 }

@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="TBL_CHANNEL\Queries\" />
-    <Folder Include="TBL_CHANNEL_USER\Queries\" />
+    <Compile Remove="TBL_CHANNEL\**" />
+    <Compile Remove="TBL_CHANNEL_USER\**" />
+    <EmbeddedResource Remove="TBL_CHANNEL\**" />
+    <EmbeddedResource Remove="TBL_CHANNEL_USER\**" />
+    <None Remove="TBL_CHANNEL\**" />
+    <None Remove="TBL_CHANNEL_USER\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HermesDataAccess\HermesDataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AspNetUsers\Queries\" />
   </ItemGroup>
 
 </Project>

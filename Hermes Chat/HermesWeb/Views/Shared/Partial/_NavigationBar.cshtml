@@ -1,0 +1,17 @@
+﻿<a class="hidden-link inner-center" href="@Url.Action(MVC.Chat.Index())">
+    <img class="navbar-hermes scale-s" src="~/images/Hermess_small.png" />
+</a>
+@if (User.Identity.IsAuthenticated)
+{
+    var user = MVC.Home.CurrentUser;
+    <div class="navbar-right">
+        <h1 class="navbar-user">Hello, @user.Username</h1>
+        <div class="dropdown right" id="acc-dropdown">
+            @Html.HermesImage(user.AccountImage.Data, className: "navbar-account-img")
+            <div class="dropdown-content">
+                <a href="" id="acc-manage">Manage account</a>
+                <a href="" id="acc-logout">Logout</a>
+            </div>
+        </div>
+    </div>
+}

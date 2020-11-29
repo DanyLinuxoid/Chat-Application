@@ -1,42 +1,70 @@
-﻿using HermesLogic.Interfaces;
+using HermesLogic.Features.Authentication.Interfaces;
 using HermesModels.MVC;
+using HermesModels.User;
+using HermesWeb.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace HermesChat.Controllers
+namespace HermesWeb.Controllers
 {
+    /// <summary>
+    /// Home - Login page.
+    /// </summary>
     [AllowAnonymous]
-    public class HomeController : ApplicationController
+    public partial class HomeController : HermesApplicationController
     {
-        private readonly IAAALogic _AAALogic;
+        /// <summary>
+        /// Authentication logic after login.
+        /// </summary>
+        private readonly IAuthenticationLogic _authenticationLogic;
 
-        public HomeController(IAAALogic AAALogic)
+        /// <summary>
+        /// Used to get value from view after logic, as after logic user is null in controller, not in view.
+        /// This gets used for navigation.
+        /// </summary>
+        /// <returns>Chat user representation.</returns>
+        public virtual ChatUser CurrentUser => _userManager.CurrentUser;
+
+        /// <summary>
+        /// Home - Login page.
+        /// </summary>
+        public HomeController(IAuthenticationLogic AAALogic)
         {
-            _AAALogic = AAALogic;
+            _authenticationLogic = AAALogic;
         }
 
-        public IActionResult Index()
+        /// <summary>
+        /// Main login page.
+        /// </summary>
+        public virtual IActionResult Index()
         {
-            return View();
-        }
- 
-        [HttpPost]
-        public IActionResult Login(LoginModel model)
-        {
-            var isLogged = _AAALogic.LoginUser(model); 
-            if (isLogged == true)
+            // Disallow user to access login functionalities if he is logged in already
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Chat");
+                return RedirectToAction(MVC.Chat.Index());
             }
 
-            return View("error");
+            return View(MVC.Home.Views.Login);
+        }
+
+        /// <summary>
+        /// Tries to log in user.
+        /// </summary>
+        /// <param name="model">Login model.</param>
+        [HttpPost]
+        [ModelStateFilter]
+        public virtual IActionResult Login(LoginModel model)
+        {
+            _authenticationLogic.LoginUser(model);
+            return RedirectToAction(MVC.Chat.Index());
         }
 
         [HttpPost]
-        public IActionResult Logout()
+        public virtual IActionResult Logout()
         {
-            _AAALogic.LogoutUser(CurrentUser);
-            return Json(new { url = Url.Action("Index", "Home") });
+            _authenticationLogic.LogoutUser();
+            return Json(new { url = Url.RouteUrl(MVC.Home.Index()) });
         }
     }
 }

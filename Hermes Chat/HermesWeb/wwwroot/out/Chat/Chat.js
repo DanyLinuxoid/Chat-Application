@@ -1,42 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var sigr = require("@microsoft/signalr");
+var SignalR = require("@microsoft/signalr");
 var Message_1 = require("../Chat/Message");
-var MessageValidator_1 = require("../Validators/MessageValidator");
-var connection = new sigr.HubConnectionBuilder().withUrl("/Chat/Index").build();
-// TODO write comments to functions !!!!
+require("jquery-validation-unobtrusive");
+var FormScripts_1 = require("../Layout/FormScripts");
+var connection = new SignalR.HubConnectionBuilder().withUrl("/Chat/Index").build(); /// SIGNALR TO OTHER LOGIC!!!!!!!!!!!!!!!!!!
+// --------------- TODO -------------------
+//1. Scroll on new message adding(+/- bug) -- DONE
+//2. Dodelat6 sessiju(is db field needed ?) -- DONE
+//3. Signalr not working - DONE
+//3.5. dissalow user to get on login/registration page -- DONE
+//4. Some fancy message animations on message adding -- DONE
+//5. Next to message - account image -- DONE
+//5.6 ajax form submit works fine with update values on acc, but not working for message, also it sends data multiple times if .submit() is triggered manually -- DONE
+//7. Backend refactoring + 6.5 minimize IhttpContexAccessor + 6. retrieve values from cache, not from session, in session - store only id _ minimize ISessionLogic
+//8. Final tests
+//9. Unit tests (???)
+//10. ready for prod :)
+// validation remove error message on empty text
+// return to chat if user is authorized and requests login page or registration page
 var Chat = /** @class */ (function () {
     function Chat() {
+        this.messageHeight = 115;
     }
     Chat.prototype.Initialize = function () {
         var self = this;
-        self.validator = new MessageValidator_1.MessageValidator();
         $(document).ready(function () {
+            self._formScripts = new FormScripts_1.FormScripts();
             self.AttachEvents();
+            connection.start();
+            self.ScrollToBottom();
+            self.currentUserUsername = $('input[name=UserName]').val().toString();
         });
     };
-    Chat.prototype.SendMessage = function (e) {
+    Chat.prototype.SendMessage = function (formId) {
         var self = this;
-        if (!self.validator.Validate('#message-text')) {
-            e.preventDefault();
-            return;
-        }
-        var message = new Message_1.Message($('input[name=UserName]').val(), $('#message-text').val(), new Date());
-        var controllerObject = { Text: message.Text, Username: message.Username, CreationTime: message.CreationTime.toISOString() };
-        $.post('/Chat/SendMessage', { message: controllerObject })
-            .done(function (data) {
-            if (data === true) {
-                self.AddMessageToChat(message);
-                self.PostMessageReceival();
-                connection.invoke('sendMessage', message); // TODO SignalR not working
-            }
-            else {
-                console.log('something went wrong'); // TODO  HANDLE LATER ERRORS WITH DISPLAY (Done in controller?)
-            }
-        });
-    };
-    Chat.prototype.AddMessageToChat = function (message) {
-        this.DrawMessage(message);
+        var message = new Message_1.Message();
+        // Values are handled on server, but it is needed for signalR
+        message.CreationTime = new Date();
+        message.Username = this.currentUserUsername;
+        message.Text = $('#message-text').val().toString();
+        var callbackOnSuccess = function () {
+            connection.invoke('SendMessageAsync', message);
+            self.PostMessageReceival();
+        };
+        this._formScripts.HandleFormSubmit(formId, callbackOnSuccess);
     };
     Chat.prototype.ClearInputField = function () {
         $('#message-text').val('');
@@ -44,33 +52,44 @@ var Chat = /** @class */ (function () {
     Chat.prototype.AttachEvents = function () {
         var self = this;
         $('#send-message').on('click', function (e) {
-            self.SendMessage(e);
+            self.SendMessage('.chat-form');
         });
-        connection.on('newMessageReceived', function (message) {
-            self.DrawMessage(message);
-            self.PostMessageReceival();
-        });
-        connection.on("newUserJoined", function (user) {
-            self.NewUserJoined(user);
+        connection.on("receiveMessage", function (message) {
+            self.FormatAndDrawMessage(message);
         });
     };
     Chat.prototype.PostMessageReceival = function () {
-        // dafuq why scroll to bottom is not working...
         this.ClearInputField();
+        this.AnimateScrollToNewMessage();
     };
-    Chat.prototype.DrawMessage = function (message) {
-        var date = message.CreationTime;
-        var month = ('0' + (date.getMonth() + 1)).slice(-2);
-        var customDate = date.getUTCDate() + "." + month + "." + date.getUTCFullYear() + " at " + date.toTimeString().split(' ')[0];
-        var mesg = "<div class=\"chat-row chat-message-box\">\n                  <p class=\"chat-row\">" + customDate + "</p>\n                  <p class=\"chat-row\">" + message.Username + "</p>\n                  <div class=\"message\">\n                      <p class=\"chat-row\">" + message.Text + "</p>\n                  </div>\n             </div>";
-        $('#message-container').append(mesg);
+    Chat.prototype.FormatAndDrawMessage = function (message) {
+        var isMirrored = message.username == this.currentUserUsername;
+        this.DrawMessage(message, isMirrored);
     };
-    /**
-     * Notifies chat, that new user has joined
-     * @param user - user that joined
-     */
-    Chat.prototype.NewUserJoined = function (user) {
-        alert('new user joined'); // todo change later
+    Chat.prototype.AnimateScrollToNewMessage = function () {
+        var messages = document.getElementById('message-container');
+        $(messages).stop().animate({
+            scrollTop: "+=" + this.messageHeight
+        }, 100);
+    };
+    Chat.prototype.ScrollToBottom = function () {
+        var messages = document.getElementById('message-container');
+        messages.scrollTop = messages.scrollHeight;
+    };
+    Chat.prototype.DrawMessage = function (message, mirrored) {
+        var messageHtml = "<ul class=\"" + (mirrored ? "mirror" : null) + " list-row\">\n                    <li class=\"left-pad-top\">\n                        <img class='person-avatar-M' src='data:image;base64," + message.accountImageData + "' />\n                    </li>\n                    <li class=\"photo-message-delimeter\"></li>\n                    <li class=\"chat-row chat-message-box\">\n                        <p class=\"chat-row " + (mirrored ? "non-mirror" : null) + "\">" + this.GetFormattedSendingTimeForMessage() + "</p>\n                        <p class=\"chat-row " + (mirrored ? "non-mirror" : null) + "\">" + message.username + "</p>\n                        <p class=\"message chat-row " + (mirrored ? "non-mirror" : null) + "\">" + message.text + "</p>\n                    </li>\n             </ul>";
+        var messageContainer = $('#message-rows');
+        messageContainer.append(messageHtml);
+        this.AnimateScrollToNewMessage();
+    };
+    Chat.prototype.GetFormattedSendingTimeForMessage = function () {
+        var creationTime = new Date();
+        var month = ('0' + (creationTime.getMonth() + 1)).slice(-2);
+        var currentHour = creationTime.getHours();
+        // getHours() returns hours in format 1.11 if one digit, have to check and add 0 manually if this is the case.
+        var customTime = (currentHour.toString().length == 1 ? "0" + currentHour : currentHour) + ":" + creationTime.getMinutes();
+        var customDate = creationTime.getUTCDate() + "." + month + "." + creationTime.getUTCFullYear();
+        return customDate + " at " + customTime;
     };
     return Chat;
 }());

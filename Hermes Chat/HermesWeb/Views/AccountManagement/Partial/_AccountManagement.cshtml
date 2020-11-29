@@ -1,0 +1,5 @@
+﻿@model HermesModels.MVC.UserAccountManagementViewModel
+
+<div class="hidden" id="profile-details">
+    @await Html.PartialAsync(MVC.AccountManagement.Views.Partial._AccountDetails, Model?.UserProfile)
+</div>

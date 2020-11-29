@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace HermesDataAccess.Table
+namespace HermesDataAccess.Tables
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "Readability")]
     public class MESSAGES
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
 
         public string USERNAME { get; set; }
 
         public string TEXT { get; set; }
 
-        public DateTime CREATIONTIME { get; set; }
+        public DateTime CREATION_TIME { get; set; }
 
-        public int USERID { get; set; }
+        public long ASPNET_USER_ID { get; set; }
     }
 }

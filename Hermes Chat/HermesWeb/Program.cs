@@ -1,10 +1,9 @@
-﻿using HermesChat;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace hermesChatAlhambra
+namespace HermesWeb
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

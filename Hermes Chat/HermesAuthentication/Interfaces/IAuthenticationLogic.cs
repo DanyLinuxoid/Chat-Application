@@ -4,12 +4,27 @@ using HermesModels.User;
 
 namespace AuthenAuthorAccount.Interfaces
 {
+    /// <summary>
+    /// Logic for authentication.
+    /// </summary>
     public interface IAuthenticationLogic
     {
-        IExecutionResult RegisterNewUser(RegistrationModel registrationModel);
+        /// <summary>
+        /// User registration.
+        /// </summary>
+        /// <param name="registrationModel">Model to register values from.</param>
+        void RegisterNewUser(RegistrationModel registrationModel);
 
-        IExecutionResult LoginUser(AspNetUser aspNetUser);
+        /// <summary>
+        /// User log in.
+        /// </summary>
+        /// <param name="aspNetUser">User to log in.</param>
+        void LoginUser(ChatUser aspNetUser);
 
-        IExecutionResult LogoutUser(AspNetUser aspNetUser);
+        /// <summary>
+        /// Logs out current user.
+        /// </summary>
+        /// <param name="aspNetUser">User to logout.</param>
+        void LogoutUser(ChatUser aspNetUser);
     }
 }

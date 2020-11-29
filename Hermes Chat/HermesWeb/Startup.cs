@@ -1,25 +1,26 @@
 ﻿using FluentValidation.AspNetCore;
-using Hermes.Areas.Identity.Services;
-using HermesChat.Hubs;
-using HermesLogic;
+using HermesShared.Configuration;
+using HermesWeb.Filters;
+using HermesWeb.Hubs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
-namespace HermesChat
+namespace HermesWeb
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration) // TODO make private property to check if env is development
+        public Startup(IConfiguration configuration, IServiceProvider serviceProvider) 
         {
             Configuration = configuration;
+            DependencyInjector.SetProvider(serviceProvider);
         }
 
         public IConfiguration Configuration { get; }
@@ -32,19 +33,22 @@ namespace HermesChat
                 options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddCookie(options =>
+            }).AddCookie(options =>
                 {
                     options.LoginPath = "/Home/Login";
                     options.SlidingExpiration = true;
                     options.CookieName = "HermesCookie";
                     options.LogoutPath = "/Home/Logout";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(ConfigurationManager.DefaultUserSessionExpirationTimeInMinutes);
                 });
+            services.AddSession(options =>
+            {
+                // 20 min session is default, but we will set 30.
+                options.IdleTimeout = TimeSpan.FromMinutes(ConfigurationManager.DefaultUserSessionExpirationTimeInMinutes);
+            });
 
-            // Dependency section + Email sending service
-            services.AddTransient<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
-            new DependencyInjector().RegisterClasses(services);
+            // Dependency section
+            DependencyInjector.RegisterClasses(services);
 
             // Chat
             services.AddSignalR();
@@ -53,6 +57,7 @@ namespace HermesChat
             services.AddMvc(options => 
             {
                 options.Filters.Add(new AuthorizeFilter());
+                options.Filters.Add<SessionStateFilterGlobalAttribute>();
             })
             .AddFluentValidation()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -71,15 +76,21 @@ namespace HermesChat
                 app.UseHsts();
             }
 
+            DependencyInjector.SetProvider(app.ApplicationServices);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            // Authentication
             app.UseAuthentication();
+            // Cookies
             app.UseCookiePolicy(new CookiePolicyOptions()
             {
                 HttpOnly = HttpOnlyPolicy.Always,
                 Secure = CookieSecurePolicy.Always,
                 MinimumSameSitePolicy = SameSiteMode.Strict,
             });
+            // Session
+            app.UseSession();
+            // SignalR for one-to-many relationship in chat
             app.UseSignalR(route =>
             {
                 route.MapHub<ChatHub>("/Chat/Index");

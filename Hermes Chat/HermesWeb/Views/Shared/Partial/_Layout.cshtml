@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+    @RenderSection("scripts", required: false)
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>window.rootUrl = '@Url.Content("~/")';</script>
+    <script src="@Url.Content("~/bundle/layoutbundle.js")"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> @*to bundle*@
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/buttons.css" />
+    <link rel="stylesheet" href="~/css/positions.css" />
+    <link rel="stylesheet" href="~/css/chat.css" />
+</head>
+
+    <body>
+        @Html.Hidden(Url.Action(MVC.Home.Index()))
+        <nav id="navigation-bar">
+            @{await Html.RenderPartialAsync(MVC.Shared.Views.Partial._NavigationBar);}
+        </nav>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </body>
+</html>
