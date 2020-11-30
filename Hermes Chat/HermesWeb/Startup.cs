@@ -22,7 +22,6 @@ namespace HermesWeb
             Configuration = configuration;
             DependencyInjector.SetProvider(serviceProvider);
         }
-
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
