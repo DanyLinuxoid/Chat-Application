@@ -57,6 +57,7 @@ namespace HermesWeb
             {
                 options.Filters.Add(new AuthorizeFilter());
                 options.Filters.Add<SessionStateFilterGlobalAttribute>();
+                options.Filters.Add<GlobalExceptionHandlerFilterAttribute>();
             })
             .AddFluentValidation()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

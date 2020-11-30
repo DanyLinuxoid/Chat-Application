@@ -61,7 +61,6 @@ namespace HermesDataAccess.Interfaces
         /// <returns>Execution result object which contains inserted id, or error message if errro occured.</returns>
         Task<IExecutionResult> CreateAsync(string sql, DynamicParameters parameters);
 
-
         /// <summary>
         /// Command to update object in database.
         /// </summary>

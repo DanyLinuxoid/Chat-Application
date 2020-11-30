@@ -193,7 +193,6 @@
     <Compile Include="CommonQuery.cs" />
     <Compile Include="Interfaces\ISession.cs" />
     <Compile Include="Interfaces\ISqlDb.cs" />
-    <Compile Include="Interfaces\ISqlDbCachingProxy.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SqlDb.cs" />
     <Compile Include="Tables\ASPNET_USER.cs" />
