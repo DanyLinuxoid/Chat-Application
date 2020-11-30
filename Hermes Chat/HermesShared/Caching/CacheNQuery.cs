@@ -34,6 +34,13 @@ namespace HermesShared.Caching
             if (result == null)
             {
                 result = queryCallback();
+
+                // If result from query was null
+                if (result == null)
+                {
+                    return result;
+                }
+
                 _cacheManager.Set(cacheKey, result);
             }
 
