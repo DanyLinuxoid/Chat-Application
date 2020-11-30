@@ -17,6 +17,7 @@ namespace HermesWeb
                 .ConfigureLogging((hostContext, logging) =>
                 {
                     logging.AddEventLog();
+                    logging.SetMinimumLevel(LogLevel.Warning);
                 })
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

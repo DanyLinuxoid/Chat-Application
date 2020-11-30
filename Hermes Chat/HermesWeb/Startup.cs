@@ -17,12 +17,13 @@ namespace HermesWeb
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration, IServiceProvider serviceProvider) 
         {
             Configuration = configuration;
             DependencyInjector.SetProvider(serviceProvider);
         }
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
