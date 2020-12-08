@@ -4,8 +4,6 @@ namespace HermesShared.Configuration
 {
     public static class ConfigurationManager
     {
-        public static CacheKeyStorage CacheKeyStorage { get { return CacheKeyStorage.Instance; } }
-
         public static int DefaultUserSessionExpirationTimeInMinutes 
         {
             get

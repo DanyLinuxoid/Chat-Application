@@ -199,10 +199,7 @@
     <Compile Include="Base\UserManagement\IUserNonManipulativeLogic.cs" />
     <Compile Include="Base\UserManagement\UserManager.cs" />
     <Compile Include="Base\UserManagement\UserNonManipulativeLogic.cs" />
-    <Compile Include="Base\Validator\IValidatorFactory.cs" />
-    <Compile Include="Base\Validator\ValidatorFactory.cs" />
     <Compile Include="Base\Validator\ApplicationValidator.cs" />
-    <Compile Include="Base\Validator\IApplicationValidator.cs" />
     <Compile Include="Base\CacheKeys.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\FormFileExtensions.cs" />
@@ -220,7 +217,6 @@
     <Compile Include="Features\Authentication\Interfaces\IAuthenticationLogic.cs" />
     <Compile Include="Features\Chat\Interfaces\IMessageLogic.cs" />
     <Compile Include="Features\Chat\MessageLogic.cs" />
-    <Compile Include="Configuration\ConfigurationManager.cs" />
     <Compile Include="Features\Chat\ChatLogic.cs" />
     <Compile Include="Features\Chat\Interfaces\IChatLogic.cs" />
     <Compile Include="Mappers\DboToDto\AspNetUserMapper.cs" />

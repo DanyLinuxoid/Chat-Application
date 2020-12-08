@@ -7,7 +7,7 @@ namespace HermesLogic.Base.Validator
     /// Base validator, wrapper for abstract validator.
     /// </summary>
     /// <typeparam name="T">Type of model to validate.</typeparam>
-    public class ApplicationValidator<T> : AbstractValidator<T>, IApplicationValidator<T>
+    public class ApplicationValidator<T> : AbstractValidator<T>
     {
         /// <summary>
         /// User management.
