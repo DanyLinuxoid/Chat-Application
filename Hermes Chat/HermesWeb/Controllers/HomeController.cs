@@ -4,7 +4,6 @@ using HermesModels.User;
 using HermesWeb.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace HermesWeb.Controllers
 {
@@ -54,6 +53,7 @@ namespace HermesWeb.Controllers
         /// <param name="model">Login model.</param>
         [HttpPost]
         [ModelStateFilter]
+        [ValidateAntiForgeryToken]
         public virtual IActionResult Login(LoginModel model)
         {
             _authenticationLogic.LoginUser(model);
@@ -61,6 +61,7 @@ namespace HermesWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public virtual IActionResult Logout()
         {
             _authenticationLogic.LogoutUser();

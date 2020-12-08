@@ -1,8 +1,14 @@
-﻿export class Layout {
+﻿import { FormScripts } from "../Layout/FormScripts"
+
+export class Layout {
+
+    private _formScripts: FormScripts;
+
     public Initialize() {
         var self = this;
         $(document).ready(function () {
             self.AttachEvents();
+            self._formScripts = new FormScripts();
         });
     }
 
@@ -34,10 +40,9 @@
 
     private Logout(e: Event): void {
         e.preventDefault();
-        $.post('/Home/Logout')
-            .done(function (response) {
-                window.location = response.url;
-            });
+        this._formScripts.DoAjaxPost('Home/Logout', null, null, null, null, (response) => {
+            window.location = response.responseJSON.url;
+        });
     }
 }
 

@@ -50,6 +50,13 @@ namespace HermesWeb
             // Dependency section
             DependencyInjector.RegisterClasses(services);
 
+            // Https redirection
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+                options.HttpsPort = 443;
+            });
+
             // Chat
             services.AddSignalR();
 
@@ -80,8 +87,10 @@ namespace HermesWeb
             DependencyInjector.SetProvider(app.ApplicationServices);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             // Authentication
             app.UseAuthentication();
+
             // Cookies
             app.UseCookiePolicy(new CookiePolicyOptions()
             {
@@ -91,11 +100,13 @@ namespace HermesWeb
             });
             // Session
             app.UseSession();
+
             // SignalR for one-to-many relationship in chat
             app.UseSignalR(route =>
             {
                 route.MapHub<ChatHub>("/Chat/Index");
             });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -12,7 +12,7 @@ namespace HermesLogic.Features.Chat.Validators
             CascadeMode = CascadeMode.StopOnFirstFailure;
 
             RuleFor(m => m.Text)
-                .NotEmpty()
+                .NotNull()
                 .MaximumLength(500);
         }
     }

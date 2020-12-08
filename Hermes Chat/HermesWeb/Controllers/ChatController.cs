@@ -46,6 +46,7 @@ namespace HermesWeb.Controllers
         /// <returns></returns>
         [HttpPost]
         [AjaxModelStateFilter]
+        [ValidateAntiForgeryToken]
         public async virtual Task<IActionResult> SendMessageAsync(MessageModel message)
         {
             message.UserId = CurrentUserId;

@@ -46,6 +46,7 @@ namespace HermesWeb.Controllers
         /// <returns>Returns view with completed registration if everything is ok.</returns>
         [HttpPost]
         [ModelStateFilter]
+        [ValidateAntiForgeryToken]
         public virtual IActionResult Register(RegistrationModel registrationModel)
         {
             _authenticationLogic.RegisterUser(registrationModel);

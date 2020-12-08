@@ -72,7 +72,7 @@ namespace HermesLogic.Base.UserManagement
         /// <returns>True if exists, false otherwise.</returns>
         public bool IsUserWithSameEmailExisting(string email)
         {
-            return _sqlDb.CacheNQuery(new IsUserExistingWithSameEmailQuery(email), email);
+            return _sqlDb.Query(new IsUserExistingWithSameEmailQuery(email));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace HermesLogic.Base.UserManagement
         /// <returns>True if exists, false otherwise.</returns>
         public bool IsUserWithSameUsernameExisting(string username)
         {
-            return _sqlDb.CacheNQuery(new IsUserExistingWithSameUsernameQuery(username), username);
+            return _sqlDb.Query(new IsUserExistingWithSameUsernameQuery(username));
         }
     }
 }

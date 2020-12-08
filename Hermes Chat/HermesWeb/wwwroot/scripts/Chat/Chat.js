@@ -57,7 +57,7 @@ var Chat = /** @class */ (function () {
     };
     Chat.prototype.DrawMessage = function (message) {
         var messageContainer = "<div>\n                  <p>" + message.When + "</p>\n                  <p>" + message.Username + "</p>\n                  <p>" + message.Text + "</p>\n             </div>";
-        $('#chat').append(messageContainer);
+        $('.chat').append(messageContainer);
     };
     Chat.prototype.NewUserJoined = function (user) {
         alert('new user joined'); // todo change later

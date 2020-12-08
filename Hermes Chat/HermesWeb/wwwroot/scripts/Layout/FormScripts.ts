@@ -1,13 +1,14 @@
 ﻿import 'jquery-validation-unobtrusive';
+import { url } from 'inspector';
+import { log } from 'console';
 
 export class FormScripts {
     public async HandleFormSubmit(formSelector: string, callbackOnValidComplete: any, displayErrors?: boolean): Promise<boolean> {
         let self = this;
-        let isValid = false;
 
         // Check if form is valid
         if (!this.IsValidForm(formSelector)) {
-            return isValid;
+            return false;
         }
 
         // Submitting form
@@ -26,17 +27,39 @@ export class FormScripts {
             formData.append(elem.attr("name"), elem.val().toString());
         });
 
+        return await this.DoAjaxPost(form.attr('action'), form.attr('method'), formSelector, formData, displayErrors, callbackOnValidComplete);
+    }
+
+    public DoAjaxPost(
+        url: string,
+        method?: string,
+        formSelector?: string,
+        data?: any,
+        displayErrors?: boolean,
+        callbackOnValidComplete?: any): boolean {
+
+        // Anti forgery
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['RequestVerificationToken'] = token;
+
+        let isValid = false;
+        const self = this;
+
+        // Do post
         $.ajax({
             type: 'post',
-            method: form.attr('method'),
-            url: form.attr('action'),
-            data: formData,
+            headers: headers,
+            method: method,
+            url: url,
+            data: data,
             contentType: false,
             processData: false,
             success: function (result) {
                 if (result) {
                     if (!result.hasOwnProperty('errors')) {
                         isValid = true;
+                        self.HideErrorMessagesAfterValidSubmit(formSelector);
                     } else {
                         isValid = false;
                         if (displayErrors != false) {
@@ -46,13 +69,14 @@ export class FormScripts {
                     }
                 }
             },
-            error: function () {
+            error: function (result) {
                 isValid = false;
-                alert('Hoops, somethig went wrong'); // Change...
+                console.log(result);
+                alert('Hoops, something went wrong'); // Change...
             },
-            complete: function () {
+            complete: function (result) {
                 if (isValid && callbackOnValidComplete) {
-                    callbackOnValidComplete();
+                    callbackOnValidComplete(result);
                 }
             }
         });
@@ -70,6 +94,13 @@ export class FormScripts {
         }
     }
 
+    /**
+     * Sometimes JQuery is not hiding some errors automatically.
+     * @param formId - form identifier.
+     */
+    private HideErrorMessagesAfterValidSubmit(formId: string) {
+        $(formId).find('.error-msg').hide();
+    }
     private IsValidForm(formId: string): boolean {
         let form = $(formId);
 

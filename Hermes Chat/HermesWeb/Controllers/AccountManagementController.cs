@@ -37,6 +37,7 @@ namespace HermesWeb.Controllers
         /// <param name="accountDetails">Account details model to update.</param>
         [HttpPost]
         [AjaxModelStateFilter]
+        [ValidateAntiForgeryToken]
         public async virtual Task<IActionResult> Account(UserProfileModel accountDetails)
         {
             accountDetails.UploadedFiles = Request.Form.Files;

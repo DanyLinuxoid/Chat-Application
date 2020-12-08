@@ -9,17 +9,17 @@
 }
 
 <body>
-    <div class="chat-wrapper">
-        @await Html.PartialAsync(MVC.Chat.Views.Partial._UsersOnlinePanel, Model.UsersOnline) 
-        <div class="chat-border chat">
-            <div id="chat">
+    <div style="display: contents;">
+        @await Html.PartialAsync(MVC.Chat.Views.Partial._UsersOnlinePanel, Model.UsersOnline)
+        <div style="height: 98%;">
+            <div class="chat chat-border">
                 <h4 class="chat-header">Global Chat</h4>
                 @await Html.PartialAsync(MVC.Chat.Views.Partial._MessageHistory, Model.ChatSendersWithMessages)
             </div>
+            @using (Html.BeginForm(MVC.Chat.SendMessageAsync(), FormMethod.Post, htmlAttributes: new { @class = "chat-form" }))
+            {
+                @await Html.PartialAsync(MVC.Chat.Views.Partial._SendMessageForm, Model.UserMessageToSendPlaceHolder)
+            }
         </div>
-        @using (Html.BeginForm(MVC.Chat.SendMessageAsync(), FormMethod.Post, htmlAttributes: new { @class = "chat-form" }))
-        {
-            @await Html.PartialAsync(MVC.Chat.Views.Partial._SendMessageForm, Model.UserMessageToSendPlaceHolder)
-        }
     </div>
 </body>

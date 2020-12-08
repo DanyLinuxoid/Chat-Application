@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>window.rootUrl = '@Url.Content("~/")';</script>
     <script src="@Url.Content("~/bundle/layoutbundle.js")"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> @*to bundle*@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/buttons.css" />
     <link rel="stylesheet" href="~/css/positions.css" />
@@ -15,7 +15,7 @@
 
     <body>
         @Html.Hidden(Url.Action(MVC.Home.Index()))
-        <nav id="navigation-bar">
+        <nav id="navigation-bar" style="margin-bottom: 5px;">
             @{await Html.RenderPartialAsync(MVC.Shared.Views.Partial._NavigationBar);}
         </nav>
         <main role="main">

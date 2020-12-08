@@ -43,59 +43,75 @@ var FormScripts = /** @class */ (function () {
     }
     FormScripts.prototype.HandleFormSubmit = function (formSelector, callbackOnValidComplete, displayErrors) {
         return __awaiter(this, void 0, void 0, function () {
-            var self, isValid, form, formData, input;
+            var self, form, formData, input;
             return __generator(this, function (_a) {
-                self = this;
-                isValid = false;
-                // Check if form is valid
-                if (!this.IsValidForm(formSelector)) {
-                    return [2 /*return*/, isValid];
-                }
-                form = $(formSelector);
-                formData = new FormData();
-                input = document.getElementById('file-input');
-                if (input instanceof HTMLInputElement && input.files[0]) {
-                    formData.append(input.files[0].name, input.files[0]);
-                }
-                // Setting form values
-                $("[class*='input']").each(function () {
-                    var elem = $(this);
-                    formData.append(elem.attr("name"), elem.val().toString());
-                });
-                $.ajax({
-                    type: 'post',
-                    method: form.attr('method'),
-                    url: form.attr('action'),
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (result) {
-                        if (result) {
-                            if (!result.hasOwnProperty('errors')) {
-                                isValid = true;
-                            }
-                            else {
-                                isValid = false;
-                                if (displayErrors != false) {
-                                    // Displaying errors from server, which jquery validate cannot handle (mostly those that require server side check).
-                                    $.each(result.errors, function (key, errors) { return self.DisplayErrorsInFormWithId(formSelector, key, errors); });
-                                }
-                            }
+                switch (_a.label) {
+                    case 0:
+                        self = this;
+                        // Check if form is valid
+                        if (!this.IsValidForm(formSelector)) {
+                            return [2 /*return*/, false];
                         }
-                    },
-                    error: function () {
-                        isValid = false;
-                        alert('Hoops, somethig went wrong'); // Change...
-                    },
-                    complete: function () {
-                        if (isValid && callbackOnValidComplete) {
-                            callbackOnValidComplete();
+                        form = $(formSelector);
+                        formData = new FormData();
+                        input = document.getElementById('file-input');
+                        if (input instanceof HTMLInputElement && input.files[0]) {
+                            formData.append(input.files[0].name, input.files[0]);
                         }
-                    }
-                });
-                return [2 /*return*/, isValid];
+                        // Setting form values
+                        $("[class*='input']").each(function () {
+                            var elem = $(this);
+                            formData.append(elem.attr("name"), elem.val().toString());
+                        });
+                        return [4 /*yield*/, this.DoAjaxPost(form.attr('action'), form.attr('method'), formSelector, formData, displayErrors, callbackOnValidComplete)];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
             });
         });
+    };
+    FormScripts.prototype.DoAjaxPost = function (url, method, formSelector, data, displayErrors, callbackOnValidComplete) {
+        // Anti forgery
+        var token = $('input[name="__RequestVerificationToken"]').val();
+        var headers = {};
+        headers['RequestVerificationToken'] = token;
+        var isValid = false;
+        var self = this;
+        // Do post
+        $.ajax({
+            type: 'post',
+            headers: headers,
+            method: method,
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (result) {
+                if (result) {
+                    if (!result.hasOwnProperty('errors')) {
+                        isValid = true;
+                        self.HideErrorMessagesAfterValidSubmit(formSelector);
+                    }
+                    else {
+                        isValid = false;
+                        if (displayErrors != false) {
+                            // Displaying errors from server, which jquery validate cannot handle (mostly those that require server side check).
+                            $.each(result.errors, function (key, errors) { return self.DisplayErrorsInFormWithId(formSelector, key, errors); });
+                        }
+                    }
+                }
+            },
+            error: function (result) {
+                isValid = false;
+                console.log(result);
+                alert('Hoops, something went wrong'); // Change...
+            },
+            complete: function (result) {
+                if (isValid && callbackOnValidComplete) {
+                    callbackOnValidComplete(result);
+                }
+            }
+        });
+        return isValid;
     };
     FormScripts.prototype.PreviewImage = function (imageHolderSelector, image) {
         if (image) {
@@ -105,6 +121,13 @@ var FormScripts = /** @class */ (function () {
                 URL.revokeObjectURL(picHolder_1.attr('src'));
             });
         }
+    };
+    /**
+     * Sometimes JQuery is not hiding some errors automatically.
+     * @param formId - form identifier.
+     */
+    FormScripts.prototype.HideErrorMessagesAfterValidSubmit = function (formId) {
+        $(formId).find('.error-msg').hide();
     };
     FormScripts.prototype.IsValidForm = function (formId) {
         var form = $(formId);

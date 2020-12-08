@@ -12,7 +12,7 @@ namespace HermesLogic.Features.AccountManagement.Validators
             var currentUser = _userManager.CurrentUser;
 
             RuleFor(m => m.UserName)
-                .NotEmpty().WithMessage("Username length must be in range 3-24 characters!")
+                .NotEmpty().WithMessage("Username is mandatory information")
                 .Length(3, 24).WithMessage("Username length must be in range 3-24 characters!")
                 .Must(BeNonExistingUsername).WithMessage("Username is already taken!")
                 .When(m => m.UserName != currentUser.Username);

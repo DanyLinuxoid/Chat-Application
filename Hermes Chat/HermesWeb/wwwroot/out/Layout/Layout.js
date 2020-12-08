@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Layout = void 0;
+var FormScripts_1 = require("../Layout/FormScripts");
 var Layout = /** @class */ (function () {
     function Layout() {
     }
@@ -8,6 +9,7 @@ var Layout = /** @class */ (function () {
         var self = this;
         $(document).ready(function () {
             self.AttachEvents();
+            self._formScripts = new FormScripts_1.FormScripts();
         });
     };
     Layout.prototype.AttachEvents = function () {
@@ -33,9 +35,8 @@ var Layout = /** @class */ (function () {
     };
     Layout.prototype.Logout = function (e) {
         e.preventDefault();
-        $.post('/Home/Logout')
-            .done(function (response) {
-            window.location = response.url;
+        this._formScripts.DoAjaxPost('Home/Logout', null, null, null, null, function (response) {
+            window.location = response.responseJSON.url;
         });
     };
     return Layout;

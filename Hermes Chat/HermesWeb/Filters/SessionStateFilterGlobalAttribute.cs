@@ -51,7 +51,6 @@ namespace HermesWeb.Filters
 
                     // Also have to clear cookie.
                     _httpContextAccessor.HttpContext.SignOutAsync();
-                    return;
                 }
             }
             base.OnActionExecuting(context);

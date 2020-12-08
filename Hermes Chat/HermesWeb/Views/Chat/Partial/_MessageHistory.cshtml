@@ -2,41 +2,23 @@
 @model List<MessageSenderModel>
 @{
     var currentUserUsername = User.Claims.FirstOrDefault(m => m.Type == "Username")?.Value;
-    // CAN WE CALL FRONTEND SCRIPT DIRECTLY?? FOR MESSAGES
 }
 
-<div id="message-container" class="disable-overflow">
-    <div id="message-rows">
-        @foreach (var sender in Model)
-        {
-            if (sender.MessageModel.UserName == currentUserUsername)
-            {
-                <ul class="mirror list-row">
-                    <li class="left-pad-top">
-                        @Html.HermesImage(sender.UserAccountImage.Data, className: "person-avatar-M")
-                    </li>
-                    <li class="photo-message-delimeter"></li>
-                    <li class="chat-row chat-message-box">
-                        <p class="chat-row non-mirror">@sender.MessageModel.CreationTime.ToString("dd.MM.yyyy") at @sender.MessageModel.CreationTime.ToString("HH:mm")</p>
-                        <p class="chat-row non-mirror">@sender.MessageModel.UserName</p>
-                        <p class="message chat-row non-mirror">@sender.MessageModel.Text</p>
-                    </li>
-                </ul>
-            }
-            else
-            {
-                <ul class="list-row">
-                    <li class="left-pad-top">
-                        @Html.HermesImage(sender.UserAccountImage.Data, className: "person-avatar-M")
-                    </li>
-                    <li class="photo-message-delimeter"></li>
-                    <li class="chat-row chat-message-box">
-                        <p class="chat-row">@sender.MessageModel.CreationTime.ToString("dd.MM.yyyy") at @sender.MessageModel.CreationTime.ToString("HH:mm")</p>
-                        <p class="chat-row">@sender.MessageModel.UserName</p>
-                        <p class="message chat-row">@sender.MessageModel.Text</p>
-                    </li>
-                </ul>
-            }
-        }
-    </div>
+<div id="message-rows" class="chat-history disable-overflow ">
+    @foreach (var sender in Model)
+    {
+        var mirrorRow = sender.MessageModel.UserName == currentUserUsername ? "mirror" : string.Empty;
+        var mirrorMessage = sender.MessageModel.UserName == currentUserUsername ? "non-mirror" : string.Empty;
+        <ul class="@mirrorRow max-height list-row">
+            <li class="left-pad-top">
+                @Html.HermesImage(sender.UserAccountImage.Data, className: "person-avatar-M")
+            </li>
+            <li class="photo-message-delimeter"></li>
+            <li class="chat-row chat-message-box">
+                <p class="chat-row @mirrorMessage">@sender.MessageModel.CreationTime.ToString("dd.MM.yyyy") at @sender.MessageModel.CreationTime.ToString("HH:mm")</p>
+                <p class="chat-row @mirrorMessage">@sender.MessageModel.UserName</p>
+                <p class="chat-row message @mirrorMessage">@sender.MessageModel.Text</p>
+            </li>
+        </ul>
+    }
 </div>

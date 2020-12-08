@@ -3,43 +3,19 @@ import { Message } from "../Chat/Message";
 import 'jquery-validation-unobtrusive';
 import { FormScripts } from "../Layout/FormScripts"
 
-const connection = new SignalR.HubConnectionBuilder().withUrl("/Chat/Index").build();  /// SIGNALR TO OTHER LOGIC!!!!!!!!!!!!!!!!!!
+const connection = new SignalR.HubConnectionBuilder().withUrl("/Chat/Index").build();
 
-// --------------- TODO -------------------
-//1. Scroll on new message adding(+/- bug) -- DONE
-//2. Dodelat6 sessiju(is db field needed ?) -- DONE
-//3. Signalr not working - DONE
-//3.5. dissalow user to get on login/registration page -- DONE
-//4. Some fancy message animations on message adding -- DONE
-//5. Next to message - account image -- DONE
-//5.6 ajax form submit works fine with update values on acc, but not working for message, also it sends data multiple times if .submit() is triggered manually -- DONE
-
-
-//7. Backend refactoring + 6.5 minimize IhttpContexAccessor + 6. retrieve values from cache, not from session, in session - store only id _ minimize ISessionLogic
-
-
-//8. Final tests
-//9. Unit tests (???)
-//10. ready for prod :)
-
-
-
-// validation remove error message on empty text
-// return to chat if user is authorized and requests login page or registration page
-
-
-class Chat {
-    private messageHeight: number = 115;
-    private _formScripts: FormScripts;
+export class Chat {
     private currentUserUsername: string;
+    private _formScripts: FormScripts;
 
     public Initialize() { 
         var self = this;
         $(document).ready(function () {
+            connection.start();
             self._formScripts = new FormScripts();
             self.AttachEvents();
-            connection.start();
-            self.ScrollToBottom();
+            self.AnimateScrollToMessageHistoryEnd();
             self.currentUserUsername = $('input[name=UserName]').val().toString();
         });
     }
@@ -70,59 +46,57 @@ class Chat {
         });
 
         connection.on("receiveMessage", function (message: any) {
-            self.FormatAndDrawMessage(message);
+            self.DrawMessage(message);
+            self.AnimateScrollToMessageHistoryEnd();
         });
     }
 
     private PostMessageReceival() {
         this.ClearInputField();
-        this.AnimateScrollToNewMessage();
+        this.AnimateScrollToMessageHistoryEnd();
     }
 
-    private FormatAndDrawMessage(message: any): void {
+    public DrawMessage(message: any) {
         const isMirrored = message.username == this.currentUserUsername;
-        this.DrawMessage(message, isMirrored);
-    }
-
-    private AnimateScrollToNewMessage() {
-        const messages = document.getElementById('message-container');
-        $(messages).stop().animate({
-            scrollTop: `+=${this.messageHeight}`
-        }, 100);
-    }
-
-    private ScrollToBottom() {
-        const messages = document.getElementById('message-container');
-        messages.scrollTop = messages.scrollHeight;
-    }
-
-    private DrawMessage(message: any, mirrored?: boolean) { // to message logic
-        let messageHtml = 
-            `<ul class="${mirrored ? "mirror" : null} list-row">
+        let messageHtml =
+            `<ul class="${isMirrored ? "mirror" : null} max-height list-row">
                     <li class="left-pad-top">
                         <img class='person-avatar-M' src='data:image;base64,${message.accountImageData}' />
                     </li>
                     <li class="photo-message-delimeter"></li>
                     <li class="chat-row chat-message-box">
-                        <p class="chat-row ${mirrored ? "non-mirror" : null}">${this.GetFormattedSendingTimeForMessage()}</p>
-                        <p class="chat-row ${mirrored ? "non-mirror" : null}">${message.username}</p>
-                        <p class="message chat-row ${mirrored ? "non-mirror" : null}">${message.text}</p>
+                        <p class="chat-row ${isMirrored ? "non-mirror" : null}">${this.GetFormattedSendingTimeForMessage()}</p>
+                        <p class="chat-row ${isMirrored ? "non-mirror" : null}">${message.username}</p>
+                        <p class="chat-row  ${isMirrored ? "non-mirror" : null} message">${message.text}</p>
                     </li>
              </ul>`;
         let messageContainer = $('#message-rows');
         messageContainer.append(messageHtml);
-        this.AnimateScrollToNewMessage();
+    }
+
+    private AnimateScrollToMessageHistoryEnd() {
+        const messages = document.getElementById('message-rows');
+        $(messages).stop().animate({
+            scrollTop: `+=${messages.scrollHeight}` // Potentially can cause strange scrolling behavior if too many messages
+        }, 400);
     }
 
     private GetFormattedSendingTimeForMessage() {
         let creationTime = new Date();
-        let month = ('0' + (creationTime.getMonth() + 1)).slice(-2);
-        let currentHour = creationTime.getHours();
+        let dayWithLeadingZeros = this.GetFormattedDateTimeWithLeadingZeros(creationTime.getDate());
+        let monthWithLeadingZeros = this.GetFormattedDateTimeWithLeadingZeros(creationTime.getMonth() + 1);
 
-        // getHours() returns hours in format 1.11 if one digit, have to check and add 0 manually if this is the case.
-        let customTime = `${currentHour.toString().length == 1 ? "0" + currentHour : currentHour}:${creationTime.getMinutes()}`;
-        let customDate = `${creationTime.getUTCDate()}.${month}.${creationTime.getUTCFullYear()}`;
+        let hourWithLeadingZeros = this.GetFormattedDateTimeWithLeadingZeros(creationTime.getHours());
+        let minutesWithLeadingZeros = this.GetFormattedDateTimeWithLeadingZeros(creationTime.getMinutes());
+
+        let customTime = `${hourWithLeadingZeros}:${minutesWithLeadingZeros}`;
+        let customDate = `${dayWithLeadingZeros}.${monthWithLeadingZeros}.${creationTime.getUTCFullYear()}`;
+
         return `${customDate} at ${customTime}`
+    }
+
+    private GetFormattedDateTimeWithLeadingZeros(time: number) {
+        return ('0' + time).slice(-2);
     }
 }
 
